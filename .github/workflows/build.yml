@@ -63,7 +63,7 @@ jobs:
         id: version
         run: |
           cd ./device-registration-api
-          VERSION=$(python -c "import app; print(app.__version__)")
+          VERSION=$(python3 -c "from app.__version__ import __version__; print(__version__)")
           echo "device-registration-api-version=$VERSION" >> $GITHUB_OUTPUT
           echo "image-tag=${VERSION}-$(date +%Y%m%d)" >> $GITHUB_OUTPUT
       -
