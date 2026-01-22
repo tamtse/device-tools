@@ -1,9 +1,11 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.schemas.device import DeviceRegisterRequest
 from app.db.session import get_db
 from app.services.device_service import register_device
+from app.core.logging import get_logger
+
+logger = get_logger(__name__)
 
 router = APIRouter(prefix="/Device", tags=["Device"])
 
