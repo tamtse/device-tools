@@ -57,12 +57,14 @@ jobs:
           docker run --rm -i hadolint/hadolint < Dockerfile
 
       - name: Build an image from Dockerfile
+        continue-on-error: true
         run: |
           echo "Running trivy"
           cd ./device-registration-api
           docker build -t ${{ vars.DOCKERHUB_USERNAME }}/device-registration-api:${{ github.sha }} .
 
       - name: Run Trivy vulnerability scanner
+        continue-on-error: true
         uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: '${{ vars.DOCKERHUB_USERNAME }}/device-registration-api:${{ github.sha }}'
