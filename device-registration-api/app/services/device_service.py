@@ -1,8 +1,8 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models import DeviceRegistration
 
-def register_device(
-    db: Session,
+async def register_device(
+    db: AsyncSession,
     user_key: str,
     device_type: str
 ):
@@ -11,4 +11,4 @@ def register_device(
         device_type=device_type
     )
     db.add(device)
-    db.commit()
+    await db.commit()
