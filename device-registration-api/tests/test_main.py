@@ -4,7 +4,8 @@ import pytest
 
 
 @pytest.fixture
-def client():
+def client(override_get_db):
+    """Create a test client with mocked database dependency."""
     return TestClient(app)
 
 

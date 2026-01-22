@@ -15,4 +15,8 @@ RUN chmod -R 755 .
 
 USER visitor
 
+LABEL org.opencontainers.image.source="https://github.com/tamtse"
+LABEL org.opencontainers.image.version="1.0.0"
+
+
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
