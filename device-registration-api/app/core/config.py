@@ -1,9 +1,10 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field
 
 class Settings(BaseSettings):
     database_url: str
     log_level: str = Field(
-        ...,
+        default="INFO",
         description="Application log level (DEBUG, INFO, WARNING, ERROR)"
     )
 

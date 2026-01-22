@@ -7,6 +7,11 @@ class Settings(BaseSettings):
         description="Base URL of Device Registration API"
     )
 
+    database_url: str = Field(
+        ...,
+        description="Database connection URL"
+    )
+
     request_timeout_seconds: float = Field(
         default=5.0,
         description="HTTP client timeout"
