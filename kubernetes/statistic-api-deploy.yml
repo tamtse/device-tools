@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statistic-api
+  namespace: device-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: statistic-api
+  template:
+    metadata:
+      labels:
+        app: statistic-api
+        tier: frontend
+        exposure: public
+    spec:
+      containers:
+        - name: api
+          image: statistic-api:1.0.0
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: statistic-api-config
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1
+              memory: 1Gi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 40
+            periodSeconds: 30

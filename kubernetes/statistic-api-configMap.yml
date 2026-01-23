@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: statistic-api-config
+  namespace: device-platform
+data:
+  LOG_LEVEL: INFO
+  REQUEST_TIMEOUT_SECONDS: "5"
+  DATABASE_URL: postgresql://your_user:your_password@postgres:5432/your_db
+  DEVICE_REGISTRATION_API_URL: http://device-registration-api:8000
