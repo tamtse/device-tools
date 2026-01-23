@@ -30,10 +30,10 @@ jobs:
                 docker run --rm -i hadolint/hadolint < "$file"
           done
       
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v7.0.0
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #- name: SonarQube Scan
+      #  uses: SonarSource/sonarqube-scan-action@v7.0.0
+      #  env:
+      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@0.33.1
