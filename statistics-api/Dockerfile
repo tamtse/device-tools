@@ -19,14 +19,11 @@ RUN chmod -R 755 .
 
 USER visitor
 
-ENV API_VERSION=${API_VERSION} \
-    BUILD_DATE=${BUILD_DATE} \
-    VCS_REF=${VCS_REF}
-
 LABEL org.opencontainers.image.source="https://github.com/tamtse"
 LABEL org.opencontainers.image.version="1.0.0"
 LABEL version="${API_VERSION}" \
       build-date="${BUILD_DATE}" \
       vcs-ref="${VCS_REF}"
+
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
