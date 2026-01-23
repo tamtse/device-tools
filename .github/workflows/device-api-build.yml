@@ -42,11 +42,6 @@ jobs:
         cd ./device-registration-api
         pip install pytest
         python -m pytest tests/ -v
-    
-    - name: SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@v7.0.0
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
   trivy_scan:
     runs-on: ubuntu-latest

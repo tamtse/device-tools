@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: statistic-api
+  namespace: device-platform
+spec:
+  type: LoadBalancer
+  selector:
+    app: statistic-api
+  ports:
+    - port: 80
+      targetPort: 8000

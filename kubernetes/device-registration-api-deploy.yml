@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: device-registration-api
+  namespace: device-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: device-registration-api
+  template:
+    metadata:
+      labels:
+        app: device-registration-api
+        tier: backend
+        exposure: private
+    spec:
+      containers:
+        - name: api
+          image: device-registration-api:1.0.0
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: device-registration-config
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 40
+            periodSeconds: 30

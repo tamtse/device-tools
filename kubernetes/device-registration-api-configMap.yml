@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: device-registration-config
+  namespace: device-platform
+data:
+  LOG_LEVEL: INFO
+  DATABASE_URL: postgresql://your_user:your_password@postgres:5432/your_db
