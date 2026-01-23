@@ -17,8 +17,3 @@ async def get_statistics(deviceType: str = Query(...)):
 async def get_all_statistics():
     service = StatisticsService()
     return await service.get_all_device_statistics()
-
-@router.get("/health")
-async def get_all_statistics():
-    service = StatisticsService()
-    return await service.get_all_device_statistics()
