@@ -16,8 +16,8 @@ spec:
         exposure: private
     spec:
       containers:
-        - name: api
-          image: feugana1g/device-registration-api:1.0.0
+        - name: device-registration-api
+          image: feugana1g/device-registration-api:1.0.0-20260121
           ports:
             - containerPort: 8000
           envFrom:
