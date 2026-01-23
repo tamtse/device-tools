@@ -12,8 +12,6 @@ spec:
     metadata:
       labels:
         app: statistic-api
-        tier: frontend
-        exposure: public
     spec:
       containers:
         - name: api
