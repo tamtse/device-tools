@@ -104,6 +104,18 @@ jobs:
           VERSION=$(python3 -c "from app.__version__ import __version__; print(__version__)")
           echo "statistics-api-version=$VERSION" >> $GITHUB_OUTPUT
           echo "image-tag=${VERSION}-$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+
+      - name: Increment patch version
+        id: increment_version
+        run: |
+          VERSION=${{ steps.get_version.outputs.statistics-api-version }}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+          # Increment patch
+          PATCH=$((PATCH + 1))
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "new-version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "image-tag=${NEW_VERSION}-$(date +%Y%m%d)" >> $GITHUB_OUTPUT      
+          echo "__version__ = '$NEW_VERSION'" > ./statistics-api/app/__version__.py
       -
         name: Build and push
         uses: docker/build-push-action@v6
@@ -111,5 +123,11 @@ jobs:
           context: ./statistics-api
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/statistics-api:${{ steps.version.outputs.image-tag }}
+
+      - name: Commit new version
+        run: |
+          git add ./statistics-api/app/__version__.py
+          git commit -m "ci: bump version to ${{ steps.increment_version.outputs.new-version }}"
+          git push origin main
 
   
