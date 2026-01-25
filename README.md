@@ -1,7 +1,12 @@
 # Device Registration API
-[![Docker Image Size (latest)](https://img.shields.io/docker/image-size/feugana/device-registration-api/latest?color=orange)](https://hub.docker.com/r/feugana/device-registration-api)
-[![Docker Pulls](https://img.shields.io/docker/pulls/feugana/device-registration-api?color=blue)](https://hub.docker.com/r/feugana1g/device-registration-api)
-[![Docker Stars](https://img.shields.io/docker/stars/feugana/device-registration-api?color=yellow)](https://hub.docker.com/r/feugana1g/device-registration-api)
+[![Docker Image Size (latest)](https://img.shields.io/docker/feugana1g/device-registration-api/latest?color=orange)](https://hub.docker.com/r/feugana1g/device-registration-api)
+[![Docker Pulls](https://img.shields.io/docker/pulls/feugana1g/device-registration-api?color=blue)](https://hub.docker.com/r/feugana1g/device-registration-api)
+[![Docker Stars](https://img.shields.io/docker/stars/feugana1g/device-registration-api?color=yellow)](https://hub.docker.com/r/feugana1g/device-registration-api)
+
+# Statistic API
+[![Docker Image Size (latest)](https://img.shields.io/docker/feugana1g/statistic-api/latest?color=orange)](https://hub.docker.com/r/feugana1g/statistic-api)
+[![Docker Pulls](https://img.shields.io/docker/pulls/feugana1g/statistic-api?color=blue)](https://hub.docker.com/r/feugana1g/statistic-api)
+[![Docker Stars](https://img.shields.io/docker/stars/feugana1g/statistic-api?color=yellow)](https://hub.docker.com/r/feugana1g/statistic-api)
 
 
 Docker Stack pour **Device Tools API** - FastAPI + PostgreSQL
