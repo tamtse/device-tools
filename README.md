@@ -28,15 +28,17 @@ Docker Stack pour **Device Tools API** - FastAPI + PostgreSQL
 | Méthode | Endpoint         | Description           |
 | ------- | ---------------- | --------------------- |
 | POST    | /Device/register | Enregistrement device |
+| POST    | /Device/register | Enregistrement device |
 | GET     | /health          | Health Check          |
 | GET     | /docs            | Documentation FastAPI |
 
 ## 🔗 Statistic Service - Endpoints API
-| Méthode | Endpoint  | Description           |
-| ------- | --------- | --------------------- |
-| POST    | /Log/auth | Enregistrement device |
-| GET     | /health   | Health Check          |
-| GET     | /docs     | Documentation FastAPI |
+| Méthode | Endpoint                          | Description             |
+| ------- | --------------------------------- | ------------------------|
+| POST    | /Log/auth                         | Store user device       |
+| POST    | /Log/auth/statistics              | Get statistic by device |
+| GET     | /health                           | Health Check            |
+| GET     | /docs                             | Documentation FastAPI   |
 
 ## 🛠️ Variables d'environnement
 
@@ -149,4 +151,6 @@ volumes:
 networks:
   internal:
   outside: #public network
-
+```
+## 🚀 Déploiement avancé sur kubernetes
+[voir la documenation ](https://github.com/tamtse/device-tools/main/README.md)
