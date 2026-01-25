@@ -8,7 +8,6 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/feugana1g/statistic-api?color=blue)](https://hub.docker.com/r/feugana1g/statistic-api)
 [![Docker Stars](https://img.shields.io/docker/stars/feugana1g/statistic-api?color=yellow)](https://hub.docker.com/r/feugana1g/statistic-api)
 
-
 Docker Stack pour **Device Tools API** - FastAPI + PostgreSQL
 
 ## 🐳 Images Docker utilisées
@@ -20,9 +19,9 @@ Docker Stack pour **Device Tools API** - FastAPI + PostgreSQL
 | `postgres:16-alpine`                | Base de données                  | `16-alpine`       |
 
 ## 📊 Stack technique
-FastAPI + SQLAlchemy + Alembic + PostgreSQL
-├── API: Uvicorn/FastAPI (Python 3.11)
-├── DB: PostgreSQL 16
+└── FastAPI + SQLAlchemy + Alembic + PostgreSQL
+└── API: Uvicorn/FastAPI (Python 3.11)
+└── DB: PostgreSQL 16
 └── ORM: SQLAlchemy 2.0
 
 ## 🔗 Device Registration Service - Endpoints API
@@ -40,14 +39,14 @@ FastAPI + SQLAlchemy + Alembic + PostgreSQL
 | GET     | /docs     | Documentation FastAPI |
 
 ## 🛠️ Variables d'environnement
-DATABASE_URL="postgresql://user:password@postgres:5432/devices"
-POSTGRES_DB=devices
-POSTGRES_USER=user
-POSTGRES_PASSWORD=password
-DEVICE_REGISTRATION_API_URL=http://device-registration-api:8000
-REQUEST_TIMEOUT_SECONDS=5
-LOG_LEVEL=INFO
 
+ - DATABASE_URL="postgresql://user:password@postgres:5432/devices"
+ - POSTGRES_DB=devices
+ - POSTGRES_USER=user
+ - POSTGRES_PASSWORD=password
+ - DEVICE_REGISTRATION_API_URL=http://device-registration-api:8000
+ - REQUEST_TIMEOUT_SECONDS=5
+ - LOG_LEVEL=INFO
 
 ## 🚀 Déploiement rapide Docker Compose
 
@@ -150,3 +149,4 @@ volumes:
 networks:
   internal:
   outside: #public network
+
