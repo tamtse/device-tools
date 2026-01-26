@@ -5,4 +5,4 @@ metadata:
   namespace: device-platform
 data:
   LOG_LEVEL: INFO
-  DATABASE_URL: postgresql://devices:user@postgres:5432/devices
+  DATABASE_URL: postgresql://user:password@postgres:5432/devices

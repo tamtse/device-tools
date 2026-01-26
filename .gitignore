@@ -211,3 +211,6 @@ __marimo__/
 
 #Ignore cursor AI rules
 .cursor/rules/codacy.mdc
+
+# Claude Code settings
+.claude/
