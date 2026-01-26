@@ -32,7 +32,7 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp  
-          image: feugana1g/statistic-api:1.0.0
+          image: feugana1g/statistics-api:latest
           ports:
             - containerPort: 8000
           envFrom:
