@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from app.db.base import Base
 from app.db.session import engine
-from app.db import models  # Import models to register them with Base
+from app.db import models  # noqa: F401 - Import models to register them with Base
 from app.core.logging import get_logger
 
 logger = get_logger(__name__)
