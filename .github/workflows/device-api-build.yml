@@ -76,4 +76,14 @@ jobs:
           push: true
           tags: |
             ${{ vars.DOCKERHUB_USERNAME }}/device-registration-api:${{ steps.version.outputs.tag }}
+            ${{ vars.DOCKERHUB_USERNAME }}/device-registration-api:${{ steps.version.outputs.current }}
             ${{ vars.DOCKERHUB_USERNAME }}/device-registration-api:latest
+          
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ vars.DOCKERHUB_USERNAME }}/device-registration-api
+          short-description: "API interne d'enregistrement des devices - FastAPI + PostgreSQL"
+          readme-filepath: ./device-registration-api/docker-hub-readme.md
