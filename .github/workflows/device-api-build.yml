@@ -1,19 +1,15 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: Device Registration API Build and Test
 
 on:
-    push:
-      branches:    
-        - '**' 
-        - '!main'          
-    pull_request: 
-      branches:
-        - 'main'
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - 'main'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -24,7 +20,7 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    - name: Device Registration API - Install dependencies
+    - name: Install dependencies
       run: |
         cd ./device-registration-api
         python -m pip install --upgrade pip
@@ -35,58 +31,49 @@ jobs:
         cd ./device-registration-api
         pip install ruff
         ruff check .
-    - name: Device Registration API - Run tests
+    - name: Run tests
       continue-on-error: true
       run: |
-        echo "Running tests"
         cd ./device-registration-api
         pip install pytest
         python -m pytest tests/ -v
-   
+
   docker:
     runs-on: ubuntu-latest
+    needs: build
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v5
-      -
-        name: Login to Docker Hub
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Set up QEMU
+
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
+
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Increment patch version
-        id: increment_version
+      - name: Get version
+        id: version
         run: |
-          VERSION=${{ steps.get_version.outputs.device-registration-api-version }}
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-          # Increment patch
-          PATCH=$((PATCH + 1))
-          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-          echo "new-version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "image-tag=${NEW_VERSION}-$(date +%Y%m%d)" >> $GITHUB_OUTPUT      
-          echo "__version__ = '$NEW_VERSION'" > ./device-registration-api/app/__version__.py
+          cd ./device-registration-api
+          VERSION=$(python3 -c "from app.__version__ import __version__; print(__version__)")
+          echo "current=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=${VERSION}-$(date +%Y%m%d)" >> $GITHUB_OUTPUT
 
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./statistics-api
+          context: ./device-registration-api
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/device-registration-api:${{ steps.version.outputs.image-tag }}
-
-      - name: Commit new version
-        run: |
-          git add ./device-registration-api/app/__version__.py
-          git commit -m "ci: bump version to ${{ steps.increment_version.outputs.new-version }}"
-          git push origin main
+          tags: |
+            ${{ vars.DOCKERHUB_USERNAME }}/device-registration-api:${{ steps.version.outputs.tag }}
+            ${{ vars.DOCKERHUB_USERNAME }}/device-registration-api:latest

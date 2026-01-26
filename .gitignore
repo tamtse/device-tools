@@ -49,7 +49,6 @@ coverage.xml
 *.cover
 *.py.cover
 .hypothesis/
-
 .pytest_cache/
 cover/
 
@@ -178,7 +177,6 @@ cython_debug/
 #.idea/
 
 # Abstra
-
 .abstra/
 
 # Visual Studio Code
@@ -198,6 +196,3 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-
-rules/codacy.mdc
-
