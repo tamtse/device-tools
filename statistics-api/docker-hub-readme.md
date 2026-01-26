@@ -1,20 +1,20 @@
 # Statistics API
 
-[![Docker Image Size (latest)](https://img.shields.io/docker/image-size/feugana1g/statistics-api/latest?color=orange)](https://hub.docker.com/r/feugana1g/statistics-api)
-[![Docker Pulls](https://img.shields.io/docker/pulls/feugana1g/statistics-api?color=blue)](https://hub.docker.com/r/feugana1g/statistics-api)
-[![Docker Stars](https://img.shields.io/docker/stars/feugana1g/statistics-api?color=yellow)](https://hub.docker.com/r/feugana1g/statistics-api)
+[![Docker Image Size (latest)](https://img.shields.io/docker/image-size/feugana1g/statistic-api/latest?color=orange)](https://hub.docker.com/r/feugana1g/statistic-api)
+[![Docker Pulls](https://img.shields.io/docker/pulls/feugana1g/statistic-api?color=blue)](https://hub.docker.com/r/feugana1g/statistic-api)
+[![Docker Stars](https://img.shields.io/docker/stars/feugana1g/statistic-api?color=yellow)](https://hub.docker.com/r/feugana1g/statistic-api)
 
 API publique de statistiques et logs d'authentification - FastAPI + PostgreSQL
 
 ## Quick Start
 ```bash
-docker pull feugana1g/statistics-api:latest
+docker pull feugana1g/statistic-api:latest
 
 docker run -d \
   -p 8000:8000 \
   -e DATABASE_URL=postgresql://user:password@postgres:5432/devices \
   -e DEVICE_REGISTRATION_API_URL=http://device-registration-api:8000 \
-  feugana1g/statistics-api:latest
+  feugana1g/statistic-api:latest
 ```
 
 ## Endpoints
@@ -48,7 +48,7 @@ services:
       DATABASE_URL: postgresql://user:password@postgres:5432/devices
 
   statistics-api:
-    image: feugana1g/statistics-api:latest
+    image: feugana1g/statistic-api:latest
     ports:
       - "8000:8000"
     environment:
