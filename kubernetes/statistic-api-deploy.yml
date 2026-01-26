@@ -33,6 +33,7 @@ spec:
             - name: tmp
               mountPath: /tmp  
           image: feugana1g/statistics-api:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           envFrom:
