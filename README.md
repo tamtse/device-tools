@@ -158,7 +158,6 @@ Consultez la documentation complète dans le dossier [`kubernetes/`](kubernetes/
 - Configuration des manifestes
 - Déploiement step-by-step
 - NetworkPolicies et sécurité
-- Scaling et monitoring
 
 Ou consultez les README spécifiques :
 - [Device Registration API - Kubernetes](device-registration-api/readme.md#how-to-deploy-on-kubernetes)
