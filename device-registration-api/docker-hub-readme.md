@@ -4,7 +4,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/feugana1g/device-registration-api?color=blue)](https://hub.docker.com/r/feugana1g/device-registration-api)
 [![Docker Stars](https://img.shields.io/docker/stars/feugana1g/device-registration-api?color=yellow)](https://hub.docker.com/r/feugana1g/device-registration-api)
 
-API interne d'enregistrement des devices - FastAPI + PostgreSQL
+Internal device registration API - FastAPI + PostgreSQL
 
 ## Quick Start
 ```bash
@@ -18,9 +18,9 @@ docker run -d \
 
 ## Endpoints
 
-- `POST /Device/register` - Enregistrement device
+- `POST /Device/register` - Register a device
 - `GET /health` - Health check
-- `GET /docs` - Documentation Swagger
+- `GET /docs` - Swagger documentation
 
 ## Configuration
 ```env
@@ -33,7 +33,7 @@ REQUEST_TIMEOUT_SECONDS=5
 ```yaml
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:16
     environment:
       POSTGRES_DB: devices
       POSTGRES_USER: user
@@ -49,8 +49,8 @@ services:
 
 ## Tags
 
-- `latest` - Dernière version
-- `x.y.z` - Version spécifique
-- `x.y.z-YYYYMMDD` - Version datée
+- `latest` - Latest version
+- `x.y.z` - Specific version
+- `x.y.z-YYYYMMDD` - Dated version
 
-Documentation complète : [GitHub](https://github.com/feugana/device-tools)
+Full documentation: [GitHub](https://github.com/feugana/device-tools)

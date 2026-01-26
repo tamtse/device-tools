@@ -1,16 +1,16 @@
 # Device Tools
 
-Stack Docker pour les APIs Device Registration et Statistics - FastAPI + PostgreSQL
+Docker stack for Device Registration and Statistics APIs - FastAPI + PostgreSQL
 
-## Images Docker
+## Docker Images
 
 | Image | Description | Tags |
 |-------|-------------|------|
-| `feugana1g/device-registration-api` | API interne d'enregistrement | `latest`, `1.0.0` |
-| `feugana1g/statistics-api` | API publique de statistiques | `latest`, `1.0.0` |
-| `postgres:16-alpine` | Base de données | `16-alpine` |
+| `feugana1g/device-registration-api` | Internal registration API | `latest`, `1.0.0` |
+| `feugana1g/statistics-api` | Public statistics API | `latest`, `1.0.0` |
+| `postgres:16` | Database | `16` |
 
-## Stack technique
+## Tech Stack
 
 - Python 3.11 / FastAPI / Uvicorn
 - PostgreSQL 16
@@ -20,20 +20,20 @@ Stack Docker pour les APIs Device Registration et Statistics - FastAPI + Postgre
 
 ### Device Registration API (port 8001)
 
-| Méthode | Endpoint | Description |
-|---------|----------|-------------|
-| POST | /Device/register | Enregistrement device |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | /Device/register | Register a device |
 | GET | /health | Health check |
 
 ### Statistics API (port 8000)
 
-| Méthode | Endpoint | Description |
-|---------|----------|-------------|
-| POST | /Log/auth | Enregistrer un device |
-| GET | /Log/auth/statistics | Stats par type de device |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | /Log/auth | Log a device |
+| GET | /Log/auth/statistics | Stats by device type |
 | GET | /health | Health check |
 
-## Variables d'environnement
+## Environment Variables
 
 ```
 DATABASE_URL=postgresql://user:password@postgres:5432/devices
@@ -45,7 +45,7 @@ REQUEST_TIMEOUT_SECONDS=5
 LOG_LEVEL=INFO
 ```
 
-## Déploiement Docker Compose
+## Docker Compose Deployment
 
 ```bash
 git clone https://github.com/feugana/device-tools
@@ -54,10 +54,10 @@ cp .env.example .env
 docker-compose up -d
 ```
 
-## Déploiement Kubernetes
+## Kubernetes Deployment
 
-Voir le dossier [`kubernetes/`](kubernetes/) pour les manifestes et la configuration.
+See the [`kubernetes/`](kubernetes/) folder for manifests and configuration.
 
-Documentation par service :
+Per-service docs:
 - [Device Registration API](device-registration-api/readme.md)
 - [Statistics API](statistics-api/readme.md)

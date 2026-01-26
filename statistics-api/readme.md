@@ -1,6 +1,6 @@
 ## Statistics API
 
-Public-facing API responsible for providing device statistics.
+Public-facing API for device statistics.
 
 ### Tech Env
 - Python 3.11
@@ -46,8 +46,8 @@ Make sure to have Docker installed locally:
 
 ```bash
 cd statistics-api
-docker build -t statistics-api:1.0.0 .
-docker run -p 8000:8000 -d statistics-api:1.0.0
+docker build -t statistics-api:latest .
+docker run -p 8000:8000 -d statistics-api:latest
 ```
 
 Then open http://localhost:8000/docs to see the Swagger documentation.
@@ -67,7 +67,7 @@ Kubernetes deployment for the Statistics API (public-facing service).
 - Device Registration API deployed and running
 
 **Required images:**
-- `feugana1g/statistics-api:1.0.0` (public on Docker Hub)
+- `feugana1g/statistics-api:latest` (public on Docker Hub)
 - `postgres:16` (for database dependency)
 
 ---
@@ -101,7 +101,7 @@ Create the API configuration:
 kubectl apply -f ../kubernetes/statistic-api-configMap.yml
 ```
 
-**Important:** Verify the configuration in the ConfigMap:
+**Important:** Check the configuration in the ConfigMap:
 ```yaml
 DATABASE_URL: postgresql://user:password@postgres:5432/devices
 DEVICE_REGISTRATION_API_URL: http://device-registration-api:8000
@@ -188,7 +188,7 @@ networkpolicy.networking.k8s.io/default-deny-all created
 
 ---
 
-##### Step 5: Verify the installation
+##### Step 5: Check the installation
 
 Check that pods are running:
 
@@ -216,7 +216,7 @@ NAME            TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AG
 statistic-api   LoadBalancer   10.108.59.90    35.x.x.x        80:30123/TCP   60s
 ```
 
-**Note:** It may take a few minutes for the `EXTERNAL-IP` to be assigned. You'll see `<pending>` initially.
+**Note:** It may take a few minutes for the `EXTERNAL-IP` to be assigned. You'll see `<pending>` at first.
 
 ---
 
@@ -258,7 +258,7 @@ Then open: http://localhost:8000/docs
 
 #### Configuration
 
-The API is configured via the ConfigMap `statistic-api-config`:
+The API is configured with the ConfigMap `statistic-api-config`:
 
 ```yaml
 LOG_LEVEL: INFO
@@ -318,7 +318,7 @@ annotations:
   prometheus.io/path: "/metrics"
 ```
 
-If Prometheus is installed in your cluster, metrics will be automatically scraped.
+If Prometheus is installed in your cluster, metrics will be scraped automatically.
 
 View current metrics (if /metrics endpoint exists):
 
@@ -347,12 +347,12 @@ kubectl describe pod -n device-platform -l app=statistic-api
 
 **Pods stuck in CrashLoopBackOff:**
 - Check DATABASE_URL is correct
-- Verify PostgreSQL is running and accessible
-- Verify Device Registration API is running
+- Check PostgreSQL is running and accessible
+- Check Device Registration API is running
 - Check logs for connection errors
 
 **Connection to Device Registration API fails:**
-- Verify device-registration-api service is running
+- Check device-registration-api service is running
 - Check network policies allow egress
 - Test DNS: `kubectl exec -it <pod-name> -n device-platform -- nslookup device-registration-api`
 
@@ -362,7 +362,7 @@ kubectl describe pod -n device-platform -l app=statistic-api
 - Consider using an Ingress controller
 
 **Connection to Postgres fails:**
-- Verify network policies allow egress to postgres
+- Check network policies allow egress to postgres
 - Check DATABASE_URL credentials match postgres-secret
 
 ---
@@ -431,6 +431,6 @@ kubectl delete namespace device-platform
 
 **For production:**
 - Consider replacing LoadBalancer with an Ingress + TLS
-- Implement authentication/authorization
+- Add authentication/authorization
 - Use secrets management (Sealed Secrets, Vault)
 - Enable rate limiting

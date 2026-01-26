@@ -1,6 +1,6 @@
 ## Device Registration API
 
-Internal API responsible for registering user device types.
+Internal API for registering user device types.
 
 ### Tech Env
 - Python 3.11
@@ -66,7 +66,7 @@ Kubernetes deployment for the Device Registration API (internal service).
 - PostgreSQL deployed and running
 
 **Required images:**
-- `feugana1g/device-registration-api:1.0.0-20260121` (public on Docker Hub)
+- `feugana1g/device-registration-api:latest` (public on Docker Hub)
 - `postgres:16` (for database dependency)
 
 ---
@@ -100,7 +100,7 @@ Create the API configuration:
 kubectl apply -f ../kubernetes/device-registration-api-configMap.yml
 ```
 
-**Important:** Verify the `DATABASE_URL` in the ConfigMap matches your PostgreSQL credentials:
+**Important:** Check that the `DATABASE_URL` in the ConfigMap matches your PostgreSQL credentials:
 ```yaml
 DATABASE_URL: postgresql://user:password@postgres:5432/devices
 ```
@@ -173,7 +173,7 @@ networkpolicy.networking.k8s.io/default-deny-all created
 
 ---
 
-##### Step 5: Verify the installation
+##### Step 5: Check the installation
 
 Check that pods are running:
 
@@ -201,7 +201,7 @@ NAME                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    A
 device-registration-api   ClusterIP   10.105.10.109   <none>        8000/TCP   60s
 ```
 
-Verify health status:
+Check health status:
 
 ```bash
 kubectl port-forward -n device-platform svc/device-registration-api 8001:8000
@@ -226,7 +226,7 @@ open http://localhost:8001/docs
 
 #### Configuration
 
-The API is configured via the ConfigMap `device-registration-config`:
+The API is configured with the ConfigMap `device-registration-config`:
 
 ```yaml
 LOG_LEVEL: INFO
@@ -285,11 +285,11 @@ kubectl describe pod -n device-platform -l app=device-registration-api
 
 **Pods stuck in CrashLoopBackOff:**
 - Check DATABASE_URL is correct
-- Verify PostgreSQL is running and accessible
+- Check PostgreSQL is running and accessible
 - Check logs for connection errors
 
 **Connection to Postgres fails:**
-- Verify network policies allow egress to postgres
+- Check network policies allow egress to postgres
 - Check DNS resolution: `kubectl exec -it <pod-name> -n device-platform -- nslookup postgres`
 
 ---
