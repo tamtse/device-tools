@@ -4,6 +4,7 @@ metadata:
   name: postgres-pvc
   namespace: device-platform
 spec:
+  #storageClassName: choose a className in the existing list or keep the default from the cluster
   accessModes:
     - ReadWriteOnce
   resources:

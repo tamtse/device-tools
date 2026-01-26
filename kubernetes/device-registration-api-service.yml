@@ -3,7 +3,12 @@ kind: Service
 metadata:
   name: device-registration-api
   namespace: device-platform
-spec:
+  annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8000"
+      prometheus.io/path: "/metrics"
+pec:
+  type: ClusterIP  # API interne
   selector:
     app: device-registration-api
   ports:
