@@ -42,37 +42,7 @@ jobs:
         cd ./statistics-api
         pip install pytest
         python -m pytest tests/ -v
-  
-  trivy_scan:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Dockerfile lint (hadolint)
-        continue-on-error: true
-        run: |
-          echo "Running lint"
-          cd ./statistics-api
-          docker run --rm -i hadolint/hadolint < Dockerfile
 
-      - name: Build an image from Dockerfile
-        continue-on-error: true
-        run: |
-          echo "Running trivy"
-          cd ./statistics-api
-          docker build -t ${{ vars.DOCKERHUB_USERNAME }}/statistics-api:${{ github.sha }} .
-
-      - name: Run Trivy vulnerability scanner
-        continue-on-error: true
-        uses: aquasecurity/trivy-action@0.33.1
-        with:
-          image-ref: '${{ vars.DOCKERHUB_USERNAME }}/statistics-api:${{ github.sha }}'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
    
   docker:
     runs-on: ubuntu-latest

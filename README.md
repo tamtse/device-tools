@@ -152,5 +152,14 @@ networks:
   internal:
   outside: #public network
 ```
-## 🚀 Déploiement avancé sur kubernetes
-[voir la documenation ](https://github.com/tamtse/device-tools/main/README.md)
+## 🚀 Déploiement avancé sur Kubernetes
+
+Consultez la documentation complète dans le dossier [`kubernetes/`](kubernetes/) pour :
+- Configuration des manifestes
+- Déploiement step-by-step
+- NetworkPolicies et sécurité
+- Scaling et monitoring
+
+Ou consultez les README spécifiques :
+- [Device Registration API - Kubernetes](device-registration-api/readme.md#how-to-deploy-on-kubernetes)
+- [Statistics API - Kubernetes](statistics-api/readme.md#how-to-deploy-on-kubernetes)

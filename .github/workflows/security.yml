@@ -1,0 +1,59 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Security
+
+on:
+    push:
+      branches:    
+        - '**'         
+    pull_request: 
+      branches:
+        - 'main'
+
+permissions:
+  contents: read
+
+jobs:
+  security_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Dockerfile lint (hadolint)
+        continue-on-error: true
+        run: |
+          echo "Running lint"
+          for file in $(find . -name 'Dockerfile*'); do
+                echo "Linting $file"
+                docker run --rm -i hadolint/hadolint < "$file"
+          done
+      
+      #- name: SonarQube Scan
+      #  uses: SonarSource/sonarqube-scan-action@v7.0.0
+      #  env:
+      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+            scan-type: 'fs'
+            ignore-unfixed: true
+            format: 'sarif'
+            output: 'trivy-results.sarif'
+            severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+            sarif_file: 'trivy-results.sarif'
+
+      - name: Run Trivy in GitHub SBOM mode and submit results to Dependency Graph
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+            scan-type: 'fs'
+            format: 'github'
+            output: 'dependency-results.sbom.json'
+            scan-ref: '.'
+            github-pat: ${{ secrets.GH_TOKEN }}

@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statistic-api
+  namespace: device-platform
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: statistic-api
+  template:
+    metadata:
+      labels:
+        app: statistic-api
+        app.kubernetes.io/name: statistic-api
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/exposure: public
+        app.kubernetes.io/part-of: device-platform
+        app.kubernetes.io/managed-by: kubectl
+    spec:
+      affinity: #Affinity between pods
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: statistic-api
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: api
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp  
+          image: feugana1g/statistic-api:1.0.0
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: statistic-api-config
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1
+              memory: 1Gi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 40
+            periodSeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true 
+            capabilities:
+              drop:
+                - ALL
+      volumes:
+        - name: tmp
+          emptyDir: {}

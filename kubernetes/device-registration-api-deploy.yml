@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: device-registration-api
+  namespace: device-platform
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: device-registration-api
+  template:
+    metadata:
+      labels:
+        app: device-registration-api
+        app.kubernetes.io/name: device-registration-api
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/exposure: internal
+        app.kubernetes.io/part-of: device-platform
+        app.kubernetes.io/managed-by: kubectl
+    spec:
+      affinity: #Affinity between pods
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: device-registration-api
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: device-registration-api
+          image: feugana1g/device-registration-api:1.0.0-20260121
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: device-registration-config
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp     
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          readinessProbe:  # ← Au même niveau que securityContext
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 40
+            periodSeconds: 30
+          livenessProbe:  # ← Au même niveau
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+      volumes:
+        - name: tmp
+          emptyDir: {}

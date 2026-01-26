@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-device-registration-from-statistic
+  namespace: device-platform
+spec:
+  podSelector:
+    matchLabels:
+      app: device-registration-api
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: statistic-api
+      ports:
+        - protocol: TCP
+          port: 8000
