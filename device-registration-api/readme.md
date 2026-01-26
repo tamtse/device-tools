@@ -46,8 +46,8 @@
 
   Then open http://localhost:8000/docs to see the Swagger documentation.
 
-  ---
-  
+  ```
+
 ### How to deploy on Kubernetes
 
   Kubernetes deployment for the Device Registration API (internal service).
