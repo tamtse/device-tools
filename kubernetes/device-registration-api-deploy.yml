@@ -29,7 +29,7 @@ spec:
                 topologyKey: kubernetes.io/hostname
       containers:
         - name: device-registration-api
-          image: feugana1g/device-registration-api:1.0.0-20260121
+          image: feugana1g/device-registration-api:latest
           ports:
             - containerPort: 8000
           envFrom:

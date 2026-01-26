@@ -46,8 +46,8 @@ Make sure to have Docker installed locally:
 
 ```bash
 cd statistics-api
-docker build -t statistic-api:1.0.0 .
-docker run -p 8000:8000 -d statistic-api:1.0.0
+docker build -t statistics-api:1.0.0 .
+docker run -p 8000:8000 -d statistics-api:1.0.0
 ```
 
 Then open http://localhost:8000/docs to see the Swagger documentation.
@@ -67,7 +67,7 @@ Kubernetes deployment for the Statistics API (public-facing service).
 - Device Registration API deployed and running
 
 **Required images:**
-- `feugana1g/statistic-api:1.0.0` (public on Docker Hub)
+- `feugana1g/statistics-api:1.0.0` (public on Docker Hub)
 - `postgres:16` (for database dependency)
 
 ---
@@ -373,7 +373,7 @@ Update to a new version:
 
 ```bash
 kubectl set image deployment/statistic-api \
-  api=feugana1g/statistic-api:1.0.1 \
+  api=feugana1g/statistics-api:1.0.1 \
   -n device-platform
 ```
 
