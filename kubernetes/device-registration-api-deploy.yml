@@ -30,6 +30,7 @@ spec:
       containers:
         - name: device-registration-api
           image: feugana1g/device-registration-api:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           envFrom:
