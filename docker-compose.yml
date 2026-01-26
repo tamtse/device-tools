@@ -28,7 +28,7 @@ services:
           memory: 512M
   
   device-registration-api:
-    image: device-registration-api:1.0.0
+    image: feugana1g/device-registration-api:${VCS_REF:-}
     build: 
       context: ./device-registration-api
       dockerfile: Dockerfile
@@ -61,7 +61,7 @@ services:
           memory: 256M
 
   statistic-api:
-    image: statistic-api:1.0.0
+    image: feugana1g/statistics-api:${VCS_REF:-}
     build:
       context: ./statistics-api
       dockerfile: Dockerfile
@@ -101,4 +101,4 @@ volumes:
 
 networks:
   internal:
-  outside: #public network
+  outside:
