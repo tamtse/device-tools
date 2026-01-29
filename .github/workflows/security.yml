@@ -20,6 +20,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: TS-SCAN
+        continue-on-error: true
+        run: |
+          echo "Running ts-scan"
+          git clone https://github.com/TrustSource/ts-scan.git
+          cd ts-scan
+          python3 -m venv myenv
+          source myenv/bin/activate
+          ./ts-scan analyse -o scan.json WebGoat/
+          pip install packageurl-python
+          pip install -r requirements.txt
+          ./ts-scan analyse -o scan.json .
+          
       
       - name: Dockerfile lint (hadolint)
         continue-on-error: true
